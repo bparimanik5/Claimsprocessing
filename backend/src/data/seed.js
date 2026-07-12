@@ -74,6 +74,20 @@ const policies = [
     startDate: '2022-03-22',
     nominee: 'James Wilson',
   },
+  {
+    id: 'POL-1006',
+    policyNumber: 'PRT-101523',
+    holderName: 'David Chen',
+    holderDob: '1975-08-19',
+    productType: 'Life Cover',
+    sumAssured: 3500000,
+    premium: 11000,
+    status: 'Active',
+    startDate: '2023-05-01',
+    // NOTE: nominee intentionally absent -- this record was carried over
+    // from the legacy policy admin migration (Jan 2023) without nominee
+    // capture. Data-quality backlog item DQ-4471 tracks backfilling these.
+  },
 ];
 
 const CLAIM_TYPES = ['Death', 'Critical Illness', 'Income Protection', 'Terminal Illness'];

@@ -6,7 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "batch:renewal": "node src/batch/nightlyPolicyRenewalBatch.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
