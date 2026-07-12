@@ -33,19 +33,16 @@ const checkpoint = { lastProcessedPolicyId: null, processedCount: 0 };
 function buildRenewalNotice(policy) {
   // Checkpoint 3: renewal notice prep — derives the nominee's first name for
   // the notice greeting line ("Dear <first name>, your policy is due for
-  // renewal on ..."). Handles missing or empty nominee fields by flagging the
-  // policy for manual review instead of throwing.
+  // renewal on ..."). Assumes every Active policy has a nominee on file.
+  // If the nominee field is missing or empty, flag for manual review.
   if (!policy.nominee || typeof policy.nominee !== 'string' || policy.nominee.trim() === '') {
-    log('WARN', 'manual_review', {
-      policyId: policy.id,
-      policyNumber: policy.policyNumber,
-      reason: 'missing_nominee',
-    });
-    // Still calculate the renewal premium; greeting is left null for downstream handling.
+    log('WARN', 'missing_nominee', { policyId: policy.id, policyNumber: policy.policyNumber });
+    // Return a notice that indicates manual review is required.
     return {
       policyNumber: policy.policyNumber,
-      greeting: null,
+      greeting: 'Dear Policyholder,',
       renewalPremium: Math.round(policy.premium * RENEWAL_RATE),
+      manualReview: true,
     };
   }
 
